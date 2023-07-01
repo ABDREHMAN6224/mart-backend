@@ -16,22 +16,22 @@ var base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('appqzmYk6p
 
 
 
+base('products').select({
+    view: "Grid view"
+}).eachPage(function page(records, fetchNextPage) {
+   
+
+    records.forEach(function(record) {
+      data.push({id:record.id,...record.fields})
+        console.log('Retrieved', record.fields);
+    });
+
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { console.error(err); return; }
+});
 app.get("/products",async (req,res)=>{
-  base('products').select({
-      view: "Grid view"
-  }).eachPage(function page(records, fetchNextPage) {
-     
-  
-      records.forEach(function(record) {
-        data.push({id:record.id,...record.fields})
-          console.log('Retrieved', record.fields);
-      });
-  
-      fetchNextPage();
-  
-  }, function done(err) {
-      if (err) { console.error(err); return; }
-  });
   res.send(data)
 })
 app.get("/products/:id",(req,res)=>{
