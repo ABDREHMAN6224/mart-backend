@@ -16,7 +16,7 @@ var base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('appqzmYk6p
 
 
 
-app.get("/products",(req,res)=>{
+app.get("/products",async (req,res)=>{
   base('products').select({
       view: "Grid view"
   }).eachPage(function page(records, fetchNextPage) {
