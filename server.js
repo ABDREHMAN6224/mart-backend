@@ -9,27 +9,28 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(cors())
 
-const data=[]
+const data=[];
 
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('appqzmYk6pQwf1HEh');
 
 
+const getData=async()=>{
+const info=await base.table('products').select().all().then(res=>(res))
+return info
 
-app.get("/products",async (req,res)=>{
-  base('products').select({
-      view: "Grid view"
-  }).eachPage(function page(records, fetchNextPage) {
-    data=[]
-      records.forEach(function(record) {
-        data.push({id:record.id,...record._rawJson.fields})
-      });
-      fetchNextPage();
-      res.send(data)
-  
-  }, function done(err) {
-      if (err) { res.send(err); return; }
-  });
+
+}
+function arrangeData(info){
+  const newData=info.map(i=>{
+    return {id:i.id,...i._rawJson.fields}
+  })
+  return newData;
+}
+app.get("/products",async(req,res)=>{
+      const info=await getData();
+      const finalData=arrangeData(info);
+      res.send(finalData)
 })
 app.get("/products/:id",(req,res)=>{
 base('products').find(req.params.id, function(err, record) {
