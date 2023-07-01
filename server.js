@@ -21,7 +21,7 @@ app.get("/products",async (req,res)=>{
       view: "Grid view"
   }).eachPage(function page(records, fetchNextPage) {
       records.forEach(function(record) {
-        data.push({id:record.id,...record._rawJson.fields})
+        data=({id:record.id,...record._rawJson.fields})
       });
       fetchNextPage();
       res.send(data)
