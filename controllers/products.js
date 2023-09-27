@@ -2,6 +2,7 @@ import express from "express"
 import Product from "../models/productModel.js"
 import asyncHandler from "express-async-handler"
 
+
 export const getAllProducts = asyncHandler(async (req, res) => {
     try {
         const allProducts = await Product.find({}).sort({ createdAt: -1 });
@@ -51,9 +52,26 @@ export const addProduct = asyncHandler(async (req, res) => {
 
 })
 export const updateSingleProduct = asyncHandler(async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const found = await Product.findByIdAndUpdate(productId, { ...req.body }, { new: true });
+        if (found) {
+            res.status(200).json(found)
+        }
+        else {
+            throw new Error("Failed to update product... try again")
+        }
 
+    } catch (error) {
+        res.status(500).json({ err: error.message })
+    }
 })
 export const deleteSingleProduct = asyncHandler(async (req, res) => {
-
-
+    try {
+        const { productId } = req.params;
+        const found = await Product.findByIdAndDelete(productId);
+        res.status(200).json(found)
+    } catch (error) {
+        res.status(500).json({ err: "cannot delete" })
+    }
 })

@@ -33,19 +33,11 @@ const productSchema = new mongoose.Schema({
         trim: true
     },
     stock: Number,
-    shipping: {
-        type: Number,
-        default: 200
-    },
     featured: {
         type: Boolean,
         default: false
     },
     images: [{ type: String }],
-    reviews: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Review"
-    }],
     price: Number
 }, {
     timestamps: true
