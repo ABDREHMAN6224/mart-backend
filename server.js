@@ -19,13 +19,14 @@ const app = express();
 import Stripe from "stripe";
 // const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json({ extended: true }))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(helmet())
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }))
 app.use(morgan("common"))
-app.use(cors())
 app.use(express.static(path.join(__dirname, "public/")))
 
 const upload = multer({
