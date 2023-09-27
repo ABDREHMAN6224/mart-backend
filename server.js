@@ -64,23 +64,7 @@ const getData = async () => {
 
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-// function arrangeData(info) {
-//   const newData = info.map(i => {
-//     return { id: i.id, ...i._rawJson.fields }
-//   })
-//   return newData;
-// }
-// app.get("/products", async (req, res) => {
-//   const info = await getData();
-//   const finalData = arrangeData(info);
-//   res.send(finalData)
-// })
-// app.get("/products/:id", (req, res) => {
-//   base('products').find(req.params.id, function (err, record) {
-//     if (err) { console.error(err); return; }
-//     res.send({ id: record.id, ...record.fields })
-//   });
-// })
+
 
 app.get("/config", (req, res) => {
   res.send({ publishableKey: process.env.STRIPE_PUBLIC_KEY })
