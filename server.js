@@ -19,7 +19,10 @@ const app = express();
 import Stripe from "stripe";
 // const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-app.use(cors())
+const corsOptions = {
+  origin: 'https://ar-emart-arm.netlify.app', // Replace with your client's actual origin
+}
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json({ extended: true }))
