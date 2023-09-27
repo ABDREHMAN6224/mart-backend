@@ -32,7 +32,7 @@ export const getSingleProduct = asyncHandler(async (req, res) => {
 
 export const addProduct = asyncHandler(async (req, res) => {
     let images = []
-    images = req.files.map(f => `http://localhost:4242/${f.filename}`)
+    images = req.files.map(f => `https://long-jade-butterfly-garb.cyclic.app/${f.filename}`)
     try {
         let { name, company, isSSD, ram, category, description, stock, shipping, featured, variants } = req.body;
         variants = JSON.parse(variants)
