@@ -34,9 +34,11 @@ export const addProduct = asyncHandler(async (req, res) => {
     let images = []
     images = req.files.map(f => `https://long-jade-butterfly-garb.cyclic.app/${f.originalname}`)
     try {
-        let { name, company, isSSD, ram, category, description, stock, shipping, featured, variants } = req.body;
-        variants = JSON.parse(variants)
-        const price = variants[0].price
+        let { name, company, isSSD, ram, category, description, stock, shipping, featured, variants = [] } = req.body;
+        if (variants.length >= 1) {
+            variants = JSON.parse(variants)
+            const price = variants[0].price
+        }
         const createdProduct = await Product.create(
             { name, company, variants, isSSD, ram: Number(ram), category, description, stock: Number(stock), shipping, featured, images, price }
         )
