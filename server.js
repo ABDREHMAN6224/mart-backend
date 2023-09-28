@@ -116,3 +116,4 @@ app.post("/create-payment-intent", async (req, res) => {
     amount: paymentIntent.amount,
   });
 });
+export default app
