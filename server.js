@@ -13,8 +13,6 @@ import multer from "multer";
 import { registerUser } from "./controllers/user.js";
 import { addProduct } from "./controllers/products.js";
 dotenv.config()
-import morgan from "morgan";
-import helmet from "helmet";
 const app = express();
 import Stripe from "stripe";
 // const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -28,9 +26,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json({ extended: true }))
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(helmet())
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }))
-app.use(morgan("common"))
 app.use(express.static(path.join(__dirname, "public/")))
 
 // app.use((req, res, next) => {
