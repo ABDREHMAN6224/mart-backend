@@ -6,5 +6,7 @@ export const connection = async () => {
 
     } catch (error) {
         console.log("cannot connect to database");
+        setTimeout(connection, 5000);
+
     }
 }
